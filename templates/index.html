@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaX Agent Bank — Hỏi đáp & Kho tri thức AI</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+        <!-- Sidebar Toggle -->
+        <button class="sidebar-toggle" title="Thu gọn sidebar">
+            &lt;
+        </button>
+
+        <!-- Brand Header -->
+        <div class="sidebar-header">
+            <div class="brand-info">
+                <div class="brand-logo">
+                    <!-- Graph / Network Nodes Icon -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>MediaX</h1>
+                    <span>Agent Bank</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="sidebar-nav">
+            <a href="#qa" class="nav-item active" id="nav-qa">
+                <!-- Speech bubble icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Hỏi đáp AI</span>
+            </a>
+            <a href="#documents" class="nav-item" id="nav-documents">
+                <!-- Library / Books icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <span>Kho tri thức</span>
+            </a>
+        </nav>
+
+        <!-- User Profile Bottom -->
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="user-avatar">TA</div>
+                <div class="user-info">
+                    <span class="user-name">Trần Minh Anh</span>
+                    <span class="user-role">Chuyên viên tín dụng</span>
+                </div>
+            </div>
+            <button class="user-more" title="Tùy chọn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="19" cy="12" r="1"></circle>
+                    <circle cx="5" cy="12" r="1"></circle>
+                </svg>
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="page-title">
+                <h2 id="page-title-text">Hỏi đáp AI</h2>
+                <p id="page-subtitle-text">Truy vấn dữ liệu và phân tích nghiệp vụ với sự trợ giúp từ Đội chuyên gia AI</p>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <main class="content-container">
+            <!-- ==========================================================
+                 TAB 1: QA VIEW (#qa / Hỏi đáp AI)
+                 ========================================================== -->
+            <section id="qa-view" class="view-section active">
+                <!-- Left: PHIÊN HỎI ĐÁP -->
+                <div class="qa-panel-sessions">
+                    <div class="panel-header">
+                        <span class="panel-title">PHIÊN HỎI ĐÁP</span>
+                        <span class="badge-count">• 3</span>
+                    </div>
+
+                    <button class="btn-new-session" id="btn-new-session">
+                        <span>+</span>
+                        <span>Tạo phiên mới</span>
+                    </button>
+
+                    <div class="session-list" id="session-list">
+                        <a href="#" class="session-item active">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            <span>Hội thoại mới #3</span>
+                        </a>
+                        <a href="#" class="session-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            <span>Kiểm tra tỷ lệ DTI</span>
+                        </a>
+                        <a href="#" class="session-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            <span>Danh mục hồ sơ còn...</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Center: HỎI ĐÁP VỚI CHUYÊN GIA -->
+                <div class="qa-panel-chat">
+                    <div class="panel-header">
+                        <span class="panel-title">HỎI ĐÁP VỚI CHUYÊN GIA</span>
+                        <button class="btn-new-session-pill" id="btn-new-session-pill">
+                            <span>• Phiên mới</span>
+                        </button>
+                    </div>
+
+                    <!-- Chat messages or Empty State -->
+                    <div class="chat-messages-area" id="chat-messages-area">
+                        <div class="empty-chat-state" id="empty-chat-state">
+                            <div class="empty-chat-icon">
+                                <!-- AI Sparkle 4-pointed Star -->
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="36" height="36">
+                                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"></path>
+                                </svg>
+                            </div>
+                            <h3>Bắt đầu cuộc trò chuyện với Đội chuyên gia</h3>
+                            <p>Nhập câu hỏi tín dụng hoặc sử dụng câu hỏi mẫu bên dưới.</p>
+
+                            <!-- Interactive Sample Questions -->
+                            <div class="sample-questions">
+                                <button class="sample-q-btn">Tỷ lệ DTI cho vay mua nhà theo quy định 2026 là bao nhiêu?</button>
+                                <button class="sample-q-btn">Quy định về tài sản bảo đảm đối với doanh nghiệp SME?</button>
+                                <button class="sample-q-btn">Quy trình kiểm tra KYC và đối chiếu CIC trực tuyến?</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Input Area -->
+                    <div class="chat-input-container">
+                        <div class="chat-input-box">
+                            <input type="text" id="chat-input" placeholder="Nhập câu hỏi nghiệp vụ..." autocomplete="off">
+                            <button class="btn-send" id="btn-send" title="Gửi câu hỏi">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                                    <polyline points="5 12 12 5 19 12"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="disclaimer-text">
+                            Đội chuyên gia AI có thể mắc lỗi. Hãy kiểm tra các thông tin quan trọng.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Sẵn sàng phân rã & điều phối -->
+                <div class="qa-panel-coordination">
+                    <!-- Coordination empty state or active node list -->
+                    <div class="coord-empty-state" id="coord-empty-state">
+                        <div class="coord-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                            </svg>
+                        </div>
+                        <h3>Sẵn sàng phân rã & điều phối</h3>
+                        <p>Nhập câu hỏi ở khung chat bên trái. Sơ đồ tương tác và nhật ký phân tích nghiệp vụ của từng chuyên gia con sẽ được cập nhật trực quan tại đây.</p>
+                    </div>
+
+                    <div class="coord-agents-list" id="coord-agents-list"></div>
+                </div>
+            </section>
+
+            <!-- ==========================================================
+                 TAB 2: DOCUMENTS VIEW (#documents / Kho tài liệu)
+                 ========================================================== -->
+            <section id="documents-view" class="view-section">
+                <!-- Summary Cards Grid -->
+                <div class="summary-cards-grid">
+                    <div class="summary-card">
+                        <div class="summary-card-value">1.284</div>
+                        <div class="summary-card-label">Tổng tài liệu</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-value">1.247</div>
+                        <div class="summary-card-label">Sẵn sàng</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-value">24</div>
+                        <div class="summary-card-label">Đang xử lý</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-value">13</div>
+                        <div class="summary-card-label">Cần kiểm tra</div>
+                    </div>
+                </div>
+
+                <!-- Search and Action Bar -->
+                <div class="docs-action-bar">
+                    <div class="search-box-container">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="doc-search-input" placeholder="Tìm trong kho tài liệu">
+                    </div>
+                    <button class="btn-upload" id="btn-upload">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <span>Tải tài liệu lên</span>
+                    </button>
+                </div>
+
+                <!-- Table Wrapper -->
+                <div class="table-wrapper">
+                    <table class="docs-table">
+                        <thead>
+                            <tr>
+                                <th>Tên tệp</th>
+                                <th>Cập nhật</th>
+                                <th>Dung lượng</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="docs-table-body">
+                            <tr>
+                                <td class="file-name-cell">
+                                    <div class="file-icon pdf">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                                            <polyline points="10 9 9 9 8 9"></polyline>
+                                        </svg>
+                                    </div>
+                                    <span>Quy trình cấp tín dụng 2026.pdf</span>
+                                </td>
+                                <td>15/07/2026</td>
+                                <td>4,8 MB</td>
+                                <td><span class="status-badge ready">• Sẵn sàng</span></td>
+                            </tr>
+                            <tr>
+                                <td class="file-name-cell">
+                                    <div class="file-icon pdf">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                        </svg>
+                                    </div>
+                                    <span>Chính sách chấm điểm tín dụng.pdf</span>
+                                </td>
+                                <td>08/07/2026</td>
+                                <td>3,6 MB</td>
+                                <td><span class="status-badge ready">• Sẵn sàng</span></td>
+                            </tr>
+                            <tr>
+                                <td class="file-name-cell">
+                                    <div class="file-icon pdf">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                        </svg>
+                                    </div>
+                                    <span>Báo cáo CIC khách hàng.pdf</span>
+                                </td>
+                                <td>14/07/2026</td>
+                                <td>1,7 MB</td>
+                                <td><span class="status-badge ready">• Sẵn sàng</span></td>
+                            </tr>
+                            <tr>
+                                <td class="file-name-cell">
+                                    <div class="file-icon pdf">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                        </svg>
+                                    </div>
+                                    <span>Quy định tài sản bảo đảm.pdf</span>
+                                </td>
+                                <td>12/07/2026</td>
+                                <td>2,1 MB</td>
+                                <td><span class="status-badge ready">• Sẵn sàng</span></td>
+                            </tr>
+                            <tr>
+                                <td class="file-name-cell">
+                                    <div class="file-icon pdf">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                        </svg>
+                                    </div>
+                                    <span>Danh mục kiểm tra KYC.pdf</span>
+                                </td>
+                                <td>10/07/2026</td>
+                                <td>860 KB</td>
+                                <td><span class="status-badge ready">• Sẵn sàng</span></td>
+                            </tr>
+                            <tr>
+                                <td class="file-name-cell">
+                                    <div class="file-icon docx">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                                            <polyline points="10 9 9 9 8 9"></polyline>
+                                        </svg>
+                                    </div>
+                                    <span>Danh mục hồ sơ vay doanh nghiệp.docx</span>
+                                </td>
+                                <td>09/07/2026</td>
+                                <td>540 KB</td>
+                                <td><span class="status-badge processing">• Đang xử lý</span></td>
+                            </tr>
+                            <tr>
+                                <td class="file-name-cell">
+                                    <div class="file-icon pdf">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                        </svg>
+                                    </div>
+                                    <span>Biểu phí tín dụng doanh nghiệp.pdf</span>
+                                </td>
+                                <td>01/07/2026</td>
+                                <td>1,2 MB</td>
+                                <td><span class="status-badge ready">• Sẵn sàng</span></td>
+                            </tr>
+                            <tr>
+                                <td class="file-name-cell">
+                                    <div class="file-icon pdf">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                        </svg>
+                                    </div>
+                                    <span>Chính sách tín dụng 2024.pdf</span>
+                                </td>
+                                <td>22/12/2024</td>
+                                <td>5,4 MB</td>
+                                <td><span class="status-badge expired">• Hết hiệu lực</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Table Footer -->
+                    <div class="table-footer">
+                        <span id="footer-doc-count">Hiển thị 1-8 trong tổng số 8 tài liệu</span>
+                        <div class="page-size-selector">
+                            <span>Số dòng:</span>
+                            <select>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Upload Modal -->
+    <div class="modal-overlay" id="upload-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tải tài liệu nghiệp vụ mới</h3>
+                <button class="btn-close-modal" id="btn-close-modal">&times;</button>
+            </div>
+            <div style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 32px; text-align: center; color: #64748b; margin-bottom: 16px;">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin: 0 auto 12px; color: #4a154b;">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <p style="font-weight: 500; color: #1e293b; margin-bottom: 4px;">Kéo thả tệp vào đây hoặc click để chọn</p>
+                <p style="font-size: 12px;">Hỗ trợ PDF, DOCX, XLSX (Tối đa 50MB)</p>
+            </div>
+            <button class="btn-upload" style="width: 100%; justify-content: center;">Bắt đầu xử lý & Vector hóa</button>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MediaX Agent Bank — Hỏi đáp AI</title>
+  <title>MediaX Agent Bank — Hỏi đáp AI &amp; Kho tài liệu</title>
   <meta name="description" content="Truy vấn dữ liệu và phân tích nghiệp vụ tín dụng với sự trợ giúp từ Đội chuyên gia AI MediaX.">
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
@@ -14,14 +14,14 @@
      ============================================================ -->
 <aside class="sidebar">
   <div class="sidebar-header">
-    <div class="brand-logo">🤖</div>
+    <div class="brand-logo">&#x1F916;</div>
     <div>
       <div class="brand-name">MediaX</div>
       <div class="brand-sub">Agent Bank</div>
     </div>
   </div>
 
-  <button class="sidebar-toggle" title="Thu gọn">‹</button>
+  <button class="sidebar-toggle" title="Thu gọn">&#x2039;</button>
 
   <nav class="sidebar-nav">
     <button class="nav-item" id="nav-qa">
@@ -140,31 +140,50 @@
     </section>
 
     <!-- =====================================================
-         VIEW 2: Documents
+         VIEW 2: Documents (Kho tri thức)
          ===================================================== -->
     <section id="documents-view" class="view-section">
-      <!-- Stats -->
+
+      <!-- 4 Summary Cards -->
       <div class="stats-grid">
-        <div class="stat-card"><div class="stat-value">1.284</div><div class="stat-label">Tổng tài liệu</div></div>
-        <div class="stat-card"><div class="stat-value">1.247</div><div class="stat-label">Sẵn sàng</div></div>
-        <div class="stat-card"><div class="stat-value">24</div><div class="stat-label">Đang xử lý</div></div>
-        <div class="stat-card"><div class="stat-value">13</div><div class="stat-label">Cần kiểm tra</div></div>
+        <div class="stat-card">
+          <div class="stat-value">1.284</div>
+          <div class="stat-label">Tổng tài liệu</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">1.247</div>
+          <div class="stat-label">Sẵn sàng</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">24</div>
+          <div class="stat-label">Đang xử lý</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">13</div>
+          <div class="stat-label">Cần kiểm tra</div>
+        </div>
       </div>
 
-      <!-- Action bar -->
+      <!-- Controls Bar -->
       <div class="docs-action-bar">
         <div class="search-wrap">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="doc-search" placeholder="Tìm trong kho tài liệu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="doc-search" placeholder="Tìm trong kho tài liệu" autocomplete="off">
         </div>
-        <button class="btn-upload-docs">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <button class="btn-upload-docs" id="btn-upload-docs">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
           Tải tài liệu lên
         </button>
       </div>
 
-      <!-- Table -->
-      <div class="table-wrap">
+      <!-- Document Table Card -->
+      <div class="document-table-card">
         <table class="doc-table">
           <thead>
             <tr>
@@ -174,63 +193,36 @@
               <th>Trạng thái</th>
             </tr>
           </thead>
-          <tbody id="doc-tbody">
-            <tr>
-              <td><div class="doc-filename"><svg class="doc-icon-pdf" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Quy trình cấp tín dụng 2026.pdf</div></td>
-              <td>15/07/2026</td><td>4,8 MB</td>
-              <td><span class="tbl-badge ready">• Sẵn sàng</span></td>
-            </tr>
-            <tr>
-              <td><div class="doc-filename"><svg class="doc-icon-pdf" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Chính sách chấm điểm tín dụng.pdf</div></td>
-              <td>08/07/2026</td><td>3,6 MB</td>
-              <td><span class="tbl-badge ready">• Sẵn sàng</span></td>
-            </tr>
-            <tr>
-              <td><div class="doc-filename"><svg class="doc-icon-pdf" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Báo cáo CIC khách hàng.pdf</div></td>
-              <td>14/07/2026</td><td>1,7 MB</td>
-              <td><span class="tbl-badge ready">• Sẵn sàng</span></td>
-            </tr>
-            <tr>
-              <td><div class="doc-filename"><svg class="doc-icon-pdf" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Quy định tài sản bảo đảm.pdf</div></td>
-              <td>12/07/2026</td><td>2,1 MB</td>
-              <td><span class="tbl-badge ready">• Sẵn sàng</span></td>
-            </tr>
-            <tr>
-              <td><div class="doc-filename"><svg class="doc-icon-pdf" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Danh mục kiểm tra KYC.pdf</div></td>
-              <td>10/07/2026</td><td>860 KB</td>
-              <td><span class="tbl-badge ready">• Sẵn sàng</span></td>
-            </tr>
-            <tr>
-              <td><div class="doc-filename"><svg class="doc-icon-docx" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Danh mục hồ sơ vay doanh nghiệp.docx</div></td>
-              <td>09/07/2026</td><td>540 KB</td>
-              <td><span class="tbl-badge processing">• Đang xử lý</span></td>
-            </tr>
-            <tr>
-              <td><div class="doc-filename"><svg class="doc-icon-pdf" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Biểu phí tín dụng doanh nghiệp.pdf</div></td>
-              <td>01/07/2026</td><td>1,2 MB</td>
-              <td><span class="tbl-badge ready">• Sẵn sàng</span></td>
-            </tr>
-            <tr>
-              <td><div class="doc-filename"><svg class="doc-icon-pdf" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Chính sách tín dụng 2024.pdf</div></td>
-              <td>22/12/2024</td><td>5,4 MB</td>
-              <td><span class="tbl-badge expired">• Hết hiệu lực</span></td>
-            </tr>
-          </tbody>
+          <tbody id="doc-tbody"><!-- Rendered by JS --></tbody>
         </table>
+
+        <!-- Table Footer / Pagination -->
         <div class="table-footer">
-          <span>Hiển thị 1–8 trong tổng số 8 tài liệu</span>
-          <div style="display:flex;align-items:center;gap:8px;">
-            Số dòng: <select><option>10</option><option>20</option><option>50</option></select>
+          <div class="footer-left">
+            <span id="doc-count-label"></span>
+            <label style="display:flex;align-items:center;gap:6px;">
+              Số dòng:
+              <select class="footer-select" id="page-size-select">
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </label>
           </div>
+          <div class="footer-right" id="pagination-controls"><!-- Rendered by JS --></div>
         </div>
       </div>
+
     </section>
 
   </div><!-- /.content-area -->
 </div><!-- /.main-wrapper -->
 
 <!-- ============================================================
-     SOURCE DETAIL OVERLAY
+     SOURCE DETAIL OVERLAY (QA page)
      ============================================================ -->
 <div class="overlay-backdrop" id="overlay-backdrop"></div>
 
@@ -246,7 +238,6 @@
   </div>
 
   <div class="source-panel-body">
-    <!-- Meta -->
     <div class="source-meta">
       <dl>
         <dt>Danh mục</dt><dd id="source-meta-category">—</dd>
@@ -254,22 +245,75 @@
         <dt>Cập nhật</dt><dd id="source-meta-updated">—</dd>
       </dl>
     </div>
-
     <div class="source-divider"></div>
-
-    <!-- Excerpt -->
     <div class="source-section-label">ĐOẠN TRÍCH</div>
     <blockquote class="source-excerpt" id="source-excerpt">—</blockquote>
-
     <div class="source-divider"></div>
-
-    <!-- Agents -->
     <div class="source-section-label">Được sử dụng bởi</div>
-    <div class="source-agents" id="source-agents-list">
-      <!-- Rendered by JS -->
-    </div>
+    <div class="source-agents" id="source-agents-list"></div>
   </div>
 </div>
+
+<!-- ============================================================
+     UPLOAD MODAL
+     ============================================================ -->
+<div class="modal-layer" id="upload-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-backdrop" id="modal-backdrop"></div>
+  <div class="modal-dialog">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <div class="modal-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+      </div>
+      <div class="modal-header-text">
+        <h2 id="modal-title">Tải tài liệu lên</h2>
+        <p>Thêm tài liệu vào kho tri thức nghiệp vụ.</p>
+      </div>
+      <button class="btn-modal-close" id="btn-modal-close" title="Đóng">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <!-- Dropzone -->
+      <button class="upload-dropzone" id="upload-dropzone">
+        <div class="upload-dropzone-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <strong>Kéo thả tệp vào đây hoặc chọn tệp</strong>
+        <span>Hỗ trợ PDF, DOCX, XLSX</span>
+        <input type="file" id="file-input" accept=".pdf,.docx,.xlsx" multiple hidden>
+      </button>
+
+      <!-- File Queue -->
+      <div class="upload-queue-section" id="upload-queue-section">
+        <h3 id="queue-header">Tệp chờ xử lý</h3>
+        <div class="upload-queue" id="upload-queue">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+    </div><!-- /.modal-body -->
+
+    <!-- Footer -->
+    <div class="modal-footer">
+      <p class="modal-footer-note">RAG sẽ tự phân loại và điều phối agent phù hợp.</p>
+      <button class="btn-secondary" id="btn-modal-cancel">Hủy</button>
+      <button class="btn-primary" id="btn-start-processing" disabled>Bắt đầu xử lý</button>
+    </div>
+  </div><!-- /.modal-dialog -->
+</div><!-- /#upload-modal -->
 
 <script src="/static/js/app.js"></script>
 </body>

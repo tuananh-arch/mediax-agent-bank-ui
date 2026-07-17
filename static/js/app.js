@@ -253,7 +253,7 @@ function renderChat() {
     div.className = 'fade-slide-up';
     if (msg.kind === 'user') {
       div.innerHTML = `
-        <div class="msg-row">
+        <div class="msg-row user-row">
           <div class="msg-avatar user">TA</div>
           <div class="msg-body">
             <div class="msg-author">Bạn</div>
@@ -515,18 +515,348 @@ document.addEventListener('DOMContentLoaded', () => {
   // Send button
   document.getElementById('btn-send').addEventListener('click', () => sendMessage());
 
-  // Source overlay: backdrop click to close
+  // Source overlay: backdrop & close button
   document.getElementById('overlay-backdrop').addEventListener('click', closeSourceOverlay);
   document.getElementById('btn-close-source').addEventListener('click', closeSourceOverlay);
 
-  // Doc search filter
-  const docSearch = document.getElementById('doc-search');
-  if (docSearch) {
-    docSearch.addEventListener('input', () => {
-      const q = docSearch.value.toLowerCase();
-      document.querySelectorAll('#doc-tbody tr').forEach(tr => {
-        tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
-      });
+  // ----------------------------------------------------------------
+  // Documents Module Init
+  // ----------------------------------------------------------------
+  initDocumentsModule();
+});
+
+// ============================================================
+// DOCUMENTS MODULE — Full spec implementation
+// ============================================================
+
+// --- Data ---
+const DOCUMENT_RECORDS = [
+  { name: 'Quy trình cấp tín dụng 2026.pdf',       date: '15/07/2026', size: '4,8 MB', status: 'ready',      ext: 'pdf' },
+  { name: 'Chính sách chấm điểm tín dụng.pdf',     date: '08/07/2026', size: '3,6 MB', status: 'ready',      ext: 'pdf' },
+  { name: 'Báo cáo CIC khách hàng.pdf',             date: '14/07/2026', size: '1,7 MB', status: 'ready',      ext: 'pdf' },
+  { name: 'Quy định tài sản bảo đảm.pdf',           date: '12/07/2026', size: '2,1 MB', status: 'ready',      ext: 'pdf' },
+  { name: 'Danh mục kiểm tra KYC.pdf',              date: '10/07/2026', size: '860 KB', status: 'ready',      ext: 'pdf' },
+  { name: 'Danh mục hồ sơ vay doanh nghiệp.docx',  date: '09/07/2026', size: '540 KB', status: 'processing', ext: 'docx' },
+  { name: 'Biểu phí tín dụng doanh nghiệp.pdf',    date: '01/07/2026', size: '1,2 MB', status: 'ready',      ext: 'pdf' },
+  { name: 'Chính sách tín dụng 2024.pdf',           date: '22/12/2024', size: '5,4 MB', status: 'expired',    ext: 'pdf' },
+];
+
+const STATUS_LABELS = { ready: 'Sẵn sàng', processing: 'Đang xử lý', expired: 'Hết hiệu lực' };
+
+// --- Upload demo files ---
+const DEMO_UPLOAD_ITEMS = [
+  { id: 'u1', name: 'Hồ sơ đề nghị cấp tín dụng.pdf',  size: '2,4 MB', stageIndex: 0, failed: false, error: null },
+  { id: 'u2', name: 'Danh mục tài sản bảo đảm.docx',    size: '840 KB', stageIndex: 0, failed: false, error: null },
+  { id: 'u3', name: 'Sao kê giao dịch lỗi.xlsx',        size: '1,1 MB', stageIndex: 0, failed: false, error: null },
+];
+const UPLOAD_STAGES = ['Đang tải', 'Đang phân loại', 'Đang lập chỉ mục', 'Sẵn sàng'];
+
+// --- Documents state ---
+let docState = {
+  query: '',
+  pageSize: 10,
+  currentPage: 1,
+  uploadItems: DEMO_UPLOAD_ITEMS.map(x => ({ ...x })),
+  stageInterval: null,
+  processingStarted: false,
+};
+
+// --- SVG icons for table ---
+const ICON_PDF  = `<svg class="doc-icon-pdf"  xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`;
+const ICON_DOCX = `<svg class="doc-icon-docx" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`;
+const ICON_XLSX = `<svg class="doc-icon-xlsx" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`;
+const ICON_FILE_EMPTY = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`;
+const ICON_FILE_UPLOAD = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`;
+
+function getDocIcon(ext) {
+  if (ext === 'docx') return ICON_DOCX;
+  if (ext === 'xlsx') return ICON_XLSX;
+  return ICON_PDF;
+}
+
+// ---- Render Table ----
+function renderDocTable() {
+  const tbody        = document.getElementById('doc-tbody');
+  const countLabel   = document.getElementById('doc-count-label');
+  const paginationEl = document.getElementById('pagination-controls');
+  if (!tbody) return;
+
+  // Filter by query (locale-aware, case-insensitive)
+  const q = docState.query.trim().toLowerCase();
+  const filtered = q
+    ? DOCUMENT_RECORDS.filter(r => r.name.toLowerCase().includes(q))
+    : DOCUMENT_RECORDS;
+
+  const pageSize    = docState.pageSize;
+  const totalPages  = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const page        = Math.min(docState.currentPage, totalPages);
+  docState.currentPage = page;
+
+  const start   = (page - 1) * pageSize;
+  const pageRows = filtered.slice(start, start + pageSize);
+
+  // Count label
+  if (filtered.length === 0) {
+    countLabel.textContent = '';
+  } else {
+    const endIdx = Math.min(start + pageSize, filtered.length);
+    countLabel.innerHTML = `Hiển thị <strong>${start + 1}–${endIdx}</strong> trong tổng số <strong>${filtered.length}</strong> tài liệu`;
+  }
+
+  // Table rows
+  tbody.innerHTML = '';
+
+  if (pageRows.length === 0) {
+    // Empty state
+    const emptyRow = document.createElement('tr');
+    emptyRow.innerHTML = `
+      <td colspan="4" style="padding:0;border:none;">
+        <div class="doc-empty-state">
+          ${ICON_FILE_EMPTY}
+          <div class="doc-empty-title">Không tìm thấy tài liệu phù hợp</div>
+          <div class="doc-empty-desc">Thử thay đổi từ khóa tìm kiếm.</div>
+          <button class="btn-clear-search" id="btn-clear-search">Xóa tìm kiếm</button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(emptyRow);
+    document.getElementById('btn-clear-search').addEventListener('click', () => {
+      docState.query = '';
+      document.getElementById('doc-search').value = '';
+      docState.currentPage = 1;
+      renderDocTable();
+    });
+  } else {
+    pageRows.forEach(rec => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><div class="doc-filename">${getDocIcon(rec.ext)}<span>${rec.name}</span></div></td>
+        <td>${rec.date}</td>
+        <td>${rec.size}</td>
+        <td><span class="doc-badge ${rec.status}">${STATUS_LABELS[rec.status]}</span></td>
+      `;
+      tbody.appendChild(tr);
     });
   }
-});
+
+  // Pagination (only if totalPages > 1)
+  paginationEl.innerHTML = '';
+  if (totalPages > 1) {
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'pager-btn';
+    prevBtn.textContent = 'Trang trước';
+    prevBtn.disabled = (page === 1);
+    prevBtn.addEventListener('click', () => { docState.currentPage--; renderDocTable(); });
+    paginationEl.appendChild(prevBtn);
+
+    for (let i = 1; i <= totalPages; i++) {
+      const numBtn = document.createElement('button');
+      numBtn.className = 'pager-num' + (i === page ? ' active' : '');
+      numBtn.textContent = i;
+      numBtn.addEventListener('click', () => { docState.currentPage = i; renderDocTable(); });
+      paginationEl.appendChild(numBtn);
+    }
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'pager-btn';
+    nextBtn.textContent = 'Trang sau';
+    nextBtn.disabled = (page === totalPages);
+    nextBtn.addEventListener('click', () => { docState.currentPage++; renderDocTable(); });
+    paginationEl.appendChild(nextBtn);
+  }
+}
+
+// ---- Upload Modal ----
+function openUploadModal() {
+  docState.uploadItems = DEMO_UPLOAD_ITEMS.map(x => ({ ...x, stageIndex: 0, failed: false, error: null }));
+  docState.processingStarted = false;
+  if (docState.stageInterval) { clearInterval(docState.stageInterval); docState.stageInterval = null; }
+  renderUploadQueue();
+  document.getElementById('upload-modal').classList.add('open');
+  document.getElementById('btn-start-processing').disabled = (docState.uploadItems.length === 0);
+}
+
+function closeUploadModal() {
+  document.getElementById('upload-modal').classList.remove('open');
+  if (docState.stageInterval) { clearInterval(docState.stageInterval); docState.stageInterval = null; }
+}
+
+function renderUploadQueue() {
+  const queue = document.getElementById('upload-queue');
+  const startBtn = document.getElementById('btn-start-processing');
+  if (!queue) return;
+
+  queue.innerHTML = '';
+  docState.uploadItems.forEach((item, idx) => {
+    const article = document.createElement('article');
+    article.className = 'upload-file';
+
+    const currentStage = item.failed ? UPLOAD_STAGES[item.stageIndex] : UPLOAD_STAGES[item.stageIndex];
+    const stageLabel   = item.failed ? `<span class="stage-label failed">Lỗi tại: ${currentStage}</span>`
+                       : item.stageIndex === UPLOAD_STAGES.length - 1
+                         ? `<span class="stage-label done">${UPLOAD_STAGES[UPLOAD_STAGES.length - 1]}</span>`
+                         : `<span class="stage-label${docState.processingStarted ? ' active' : ''}">${currentStage}</span>`;
+
+    // Stage dots
+    const dotsHtml = UPLOAD_STAGES.map((_, si) => {
+      let cls = '';
+      if (item.failed && si === item.stageIndex) cls = 'failed';
+      else if (si < item.stageIndex) cls = 'done';
+      else if (si === item.stageIndex && docState.processingStarted && !item.failed) cls = 'active';
+      return `<div class="stage-dot ${cls}"></div>`;
+    }).join('');
+
+    article.innerHTML = `
+      <div class="upload-file-row">
+        <div class="upload-file-icon">${ICON_FILE_UPLOAD}</div>
+        <div class="upload-file-info">
+          <strong class="upload-file-name">${item.name}</strong>
+          <span class="upload-file-meta">${item.size}</span>
+        </div>
+      </div>
+      <div class="upload-stage-bar">
+        ${dotsHtml}
+        ${stageLabel}
+      </div>
+      ${item.failed ? `
+        <div class="upload-error">
+          <span>${item.error}</span>
+          <button class="btn-retry" data-idx="${idx}">Thử lại</button>
+        </div>
+      ` : ''}
+    `;
+    queue.appendChild(article);
+  });
+
+  // Retry handlers
+  queue.querySelectorAll('.btn-retry').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.idx);
+      docState.uploadItems[idx].failed = false;
+      docState.uploadItems[idx].error  = null;
+      docState.uploadItems[idx].stageIndex = 0;
+      renderUploadQueue();
+      if (docState.processingStarted && !docState.stageInterval) startStageInterval();
+    });
+  });
+
+  if (startBtn) startBtn.disabled = (docState.uploadItems.length === 0);
+}
+
+function startStageInterval() {
+  docState.processingStarted = true;
+  docState.stageInterval = setInterval(() => {
+    let anyActive = false;
+    docState.uploadItems.forEach((item, idx) => {
+      if (item.failed) return;
+      if (item.stageIndex < UPLOAD_STAGES.length - 1) {
+        // Simulate failure for item index 2 at stage 2
+        if (idx === 2 && item.stageIndex === 2) {
+          item.failed = true;
+          item.error  = 'Tệp bị gián đoạn khi lập chỉ mục';
+        } else {
+          item.stageIndex++;
+        }
+        anyActive = true;
+      }
+    });
+    renderUploadQueue();
+    if (!anyActive) {
+      clearInterval(docState.stageInterval);
+      docState.stageInterval = null;
+    }
+  }, 650);
+}
+
+// ---- Drag & Drop ----
+function setupDropzone() {
+  const dropzone  = document.getElementById('upload-dropzone');
+  const fileInput = document.getElementById('file-input');
+  if (!dropzone || !fileInput) return;
+
+  dropzone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', () => {
+    Array.from(fileInput.files).forEach(f => {
+      const ext = f.name.split('.').pop().toLowerCase();
+      docState.uploadItems.push({
+        id: 'f' + Date.now() + Math.random(),
+        name: f.name,
+        size: f.size > 1024 * 1024 ? `${(f.size / 1024 / 1024).toFixed(1)} MB` : `${Math.round(f.size / 1024)} KB`,
+        stageIndex: 0, failed: false, error: null,
+      });
+    });
+    fileInput.value = '';
+    renderUploadQueue();
+  });
+
+  dropzone.addEventListener('dragover',  e => { e.preventDefault(); dropzone.classList.add('drag-over'); });
+  dropzone.addEventListener('dragleave', e => { dropzone.classList.remove('drag-over'); });
+  dropzone.addEventListener('drop',      e => {
+    e.preventDefault(); dropzone.classList.remove('drag-over');
+    Array.from(e.dataTransfer.files).forEach(f => {
+      docState.uploadItems.push({
+        id: 'f' + Date.now() + Math.random(),
+        name: f.name,
+        size: f.size > 1024 * 1024 ? `${(f.size / 1024 / 1024).toFixed(1)} MB` : `${Math.round(f.size / 1024)} KB`,
+        stageIndex: 0, failed: false, error: null,
+      });
+    });
+    renderUploadQueue();
+  });
+}
+
+// ---- Bootstrap Documents ----
+function initDocumentsModule() {
+  renderDocTable();
+
+  // Search — real-time, reset to page 1
+  const searchInput = document.getElementById('doc-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      docState.query = searchInput.value;
+      docState.currentPage = 1;
+      renderDocTable();
+    });
+  }
+
+  // Page size selector
+  const pageSizeSelect = document.getElementById('page-size-select');
+  if (pageSizeSelect) {
+    pageSizeSelect.addEventListener('change', () => {
+      docState.pageSize = parseInt(pageSizeSelect.value);
+      docState.currentPage = 1;
+      renderDocTable();
+    });
+  }
+
+  // Upload modal
+  const btnUpload = document.getElementById('btn-upload-docs');
+  if (btnUpload) btnUpload.addEventListener('click', openUploadModal);
+
+  const btnModalClose  = document.getElementById('btn-modal-close');
+  const btnModalCancel = document.getElementById('btn-modal-cancel');
+  const modalBackdrop  = document.getElementById('modal-backdrop');
+  if (btnModalClose)  btnModalClose.addEventListener('click', closeUploadModal);
+  if (btnModalCancel) btnModalCancel.addEventListener('click', closeUploadModal);
+  if (modalBackdrop)  modalBackdrop.addEventListener('click', closeUploadModal);
+
+  // Escape key closes modal
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.getElementById('upload-modal').classList.contains('open')) {
+      closeUploadModal();
+    }
+  });
+
+  // Start processing button
+  const btnStart = document.getElementById('btn-start-processing');
+  if (btnStart) {
+    btnStart.addEventListener('click', () => {
+      if (docState.uploadItems.length > 0 && !docState.stageInterval) {
+        startStageInterval();
+      }
+    });
+  }
+
+  setupDropzone();
+}
+

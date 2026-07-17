@@ -12,7 +12,7 @@ import pandas as pd
 
 st.set_page_config(
     page_title="MediaX Agent Bank",
-    page_icon="🤖",
+    page_icon="✨",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -100,7 +100,7 @@ st.markdown("""
 with st.sidebar:
     st.markdown("""
     <div class="mediax-logo-box">
-        <div class="mediax-icon">🤖</div>
+        <div class="mediax-icon">✨</div>
         <div>
             <p class="mediax-title">MediaX</p>
             <p class="mediax-sub">Agent Bank</p>

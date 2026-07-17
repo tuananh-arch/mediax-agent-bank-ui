@@ -309,7 +309,7 @@ class MediaXAgentBankApp(QMainWindow):
 
         # Brand Header
         brand_layout = QHBoxLayout()
-        logo_box = QLabel("🤖")
+        logo_box = QLabel("✨")
         logo_box.setFixedSize(36, 36)
         logo_box.setAlignment(Qt.AlignmentFlag.AlignCenter)
         logo_box.setStyleSheet("background-color: #4A154B; color: white; border-radius: 10px; font-size: 18px;")
